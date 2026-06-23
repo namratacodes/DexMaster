@@ -1,0 +1,659 @@
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Space+Mono:wght@400;700&display=swap');
+
+* {
+  box-sizing: border-box;
+}
+
+.region-select-container {
+  background-color: #0a0000;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  color: #fff;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+}
+
+/* ==================== NAVBAR ==================== */
+.region-navbar {
+  width: 100%;
+  height: 80px;
+  background-color: #0a0000;
+  border-bottom: 2px solid rgba(255, 140, 0, 0.3);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 24px;
+  gap: 20px;
+}
+
+.navbar-left {
+  display: flex;
+  align-items: center;
+}
+
+.navbar-title {
+  font-family: 'Cinzel', serif;
+  font-size: 24px;
+  font-weight: 700;
+  color: #ff8c00;
+  margin: 0;
+  text-shadow: 0 0 10px rgba(255, 140, 0, 0.8), 0 0 20px rgba(255, 140, 0, 0.5);
+  letter-spacing: 2px;
+}
+
+.navbar-right {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+/* Trainer Chip */
+.trainer-chip {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 8px 16px;
+  border: 2px solid rgba(255, 140, 0, 0.6);
+  border-radius: 20px;
+  background-color: rgba(10, 0, 0, 0.8);
+  box-shadow: 0 0 8px rgba(255, 140, 0, 0.4);
+  transition: all 0.3s ease;
+}
+
+.trainer-chip:hover {
+  box-shadow: 0 0 16px rgba(255, 140, 0, 0.8);
+  border-color: rgba(255, 140, 0, 0.9);
+}
+
+.trainer-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, rgba(255, 140, 0, 0.8) 0%, rgba(255, 165, 0, 0.6) 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Space Mono', monospace;
+  font-weight: 700;
+  font-size: 18px;
+  color: #fff;
+  box-shadow: 0 0 8px rgba(255, 140, 0, 0.6);
+}
+
+.trainer-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.trainer-name {
+  font-family: 'Space Mono', monospace;
+  font-size: 14px;
+  font-weight: 700;
+  color: #fff;
+  letter-spacing: 0.5px;
+}
+
+.trainer-rank {
+  font-family: 'Space Mono', monospace;
+  font-size: 11px;
+  color: #999;
+  letter-spacing: 0.3px;
+}
+
+/* Navbar Divider */
+.navbar-divider {
+  width: 1px;
+  height: 32px;
+  background-color: rgba(255, 140, 0, 0.4);
+}
+
+/* Icon Buttons */
+.icon-button {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  padding: 12px 16px;
+  border: 2px solid rgba(255, 140, 0, 0.5);
+  border-radius: 8px;
+  background-color: rgba(10, 0, 0, 0.8);
+  color: #fff;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-family: 'Space Mono', monospace;
+}
+
+.icon-button:hover {
+  border-color: rgba(255, 140, 0, 0.9);
+  box-shadow: 0 0 12px rgba(255, 140, 0, 0.7);
+  transform: scale(1.05);
+}
+
+.icon-emoji {
+  font-size: 20px;
+  line-height: 1;
+}
+
+.icon-label {
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-align: center;
+}
+
+/* ==================== REGION GRID ==================== */
+.region-grid {
+  flex: 1;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 24px;
+  padding: 40px 24px;
+  max-width: 1200px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+@media (max-width: 768px) {
+  .region-grid {
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 16px;
+    padding: 24px 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  .region-grid {
+    grid-template-columns: 1fr;
+    gap: 12px;
+    padding: 16px 12px;
+  }
+}
+
+/* Region Cards */
+/* CARD BASE */
+.region-card {
+  position: relative;
+  border-radius: 12px;
+  border: 2px solid transparent;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  min-height: 200px;
+  overflow: hidden;
+}
+
+/* BACKGROUND IMAGE */
+.region-card-bg {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  transition: transform 0.4s ease;
+  border-radius: 10px;
+}
+
+/* IMAGE ZOOMS ON HOVER */
+.region-card:hover .region-card-bg {
+  transform: scale(1.08);
+}
+
+/* GRADIENT OVERLAY — always present so text is readable */
+.region-card-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to top,
+    rgba(0, 0, 0, 0.92) 0%,
+    rgba(0, 0, 0, 0.5) 50%,
+    rgba(0, 0, 0, 0.2) 100%
+  );
+  border-radius: 10px;
+  transition: background 0.3s ease;
+}
+
+/* DARKER OVERLAY FOR LOCKED */
+.locked-overlay {
+  background: linear-gradient(
+    to top,
+    rgba(0, 0, 0, 0.97) 0%,
+    rgba(0, 0, 0, 0.85) 100%
+  );
+}
+
+/* UNLOCKED CARD */
+.region-card.unlocked {
+  border-color: rgba(255, 140, 0, 0.4);
+}
+
+.region-card.unlocked:hover {
+  border-color: rgba(255, 140, 0, 0.9);
+  box-shadow:
+    0 0 20px rgba(255, 140, 0, 0.6),
+    0 8px 20px rgba(255, 140, 0, 0.2);
+  transform: translateY(-8px);
+}
+
+/* LOCKED CARD */
+.region-card.locked {
+  border-color: rgba(100, 100, 100, 0.3);
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.region-card.locked:hover {
+  opacity: 0.7;
+  transform: none;
+}
+
+/* LOCK OVERLAY */
+.locked-overlay {
+  background: linear-gradient(
+    to top,
+    rgba(0, 0, 0, 0.85) 0%,
+    rgba(0, 0, 0, 0.75) 100%
+  );
+}
+
+.lock-icon {
+  font-size: 42px;
+  filter: drop-shadow(0 0 8px rgba(150, 150, 150, 0.5));
+  opacity: 0.8;
+}
+
+/* CARD CONTENT — sits above image */
+.region-card-content {
+  position: relative;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  height: 100%;
+  min-height: 200px;
+  padding: 20px;
+  gap: 8px;
+}
+
+.region-name {
+  font-family: 'Cinzel', serif;
+  font-size: clamp(16px, 2vw, 24px);
+  font-weight: 700;
+  color: #ff8c00;
+  margin: 0;
+  letter-spacing: 1px;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.8);
+}
+
+.region-badges {
+  font-family: 'Space Mono', monospace;
+  font-size: 11px;
+  color: #aaa;
+  margin: 0;
+}
+
+.progress-bar {
+  width: 100%;
+  height: 3px;
+  background-color: rgba(80, 80, 80, 0.6);
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(
+    90deg,
+    rgba(255, 140, 0, 0.8),
+    rgba(255, 165, 0, 0.6)
+  );
+  box-shadow: 0 0 6px rgba(255, 140, 0, 0.7);
+}
+
+/* Lock Overlay */
+.lock-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(10, 0, 0, 0.4);
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+}
+
+.lock-icon {
+  font-size: 48px;
+  filter: drop-shadow(0 0 8px rgba(150, 150, 150, 0.5));
+}
+
+/* ==================== RESPONSIVE ==================== */
+@media (max-width: 1024px) {
+  .region-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .region-navbar {
+    flex-wrap: wrap;
+    height: auto;
+    min-height: 80px;
+    padding: 12px 16px;
+    gap: 12px;
+  }
+
+  .navbar-title {
+    font-size: 18px;
+  }
+
+  .navbar-right {
+    width: 100%;
+    justify-content: flex-start;
+    gap: 8px;
+  }
+
+  .trainer-chip {
+    flex: 1;
+    min-width: 150px;
+  }
+
+  .icon-button {
+    flex: 1;
+    min-width: 60px;
+  }
+}
+
+@media (max-width: 480px) {
+  .region-navbar {
+    flex-direction: column;
+    gap: 8px;
+    align-items: stretch;
+  }
+
+  .navbar-left,
+  .navbar-right {
+    width: 100%;
+  }
+
+  .navbar-title {
+    font-size: 16px;
+    text-align: center;
+  }
+
+  .navbar-right {
+    justify-content: space-between;
+  }
+
+  .navbar-divider {
+    display: none;
+  }
+
+  .trainer-chip {
+    min-width: unset;
+  }
+
+  .icon-button {
+    min-width: unset;
+  }
+
+  .region-card {
+    padding: 16px 12px;
+  }
+
+  .region-name {
+    font-size: 18px;
+  }
+
+  .region-badges {
+    font-size: 11px;
+  }
+}
+.region-embers {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: 0;
+}
+
+.region-ember {
+  position: absolute;
+  bottom: -10px;
+  background: #ff6a00;
+  border-radius: 50%;
+  box-shadow: 0 0 6px #ff4500;
+  animation: regionEmberFloat linear infinite;
+}
+
+@keyframes regionEmberFloat {
+  0%   { transform: translateY(0) scale(1); opacity: 0.8; }
+  100% { transform: translateY(-100vh) scale(0); opacity: 0; }
+}
+/* WCS SECTION */
+.wcs-section {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px 40px 24px;
+}
+
+.wcs-card {
+  position: relative;
+  width: 100%;
+  min-height: 400px;
+  border-radius: 16px;
+  border: 2px solid rgba(255, 215, 0, 0.3);
+  overflow: hidden;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.wcs-unlocked {
+  border-color: rgba(255, 215, 0, 0.8);
+  box-shadow:
+    0 0 30px rgba(255, 215, 0, 0.4),
+    0 0 60px rgba(255, 215, 0, 0.2);
+}
+
+.wcs-unlocked:hover {
+  transform: translateY(-6px);
+  box-shadow:
+    0 0 50px rgba(255, 215, 0, 0.7),
+    0 0 100px rgba(255, 215, 0, 0.4);
+}
+
+.wcs-locked {
+  border-color: rgba(100, 100, 100, 0.3);
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.wcs-card-bg {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    135deg,
+    #1a0a00 0%,
+    #2a1500 40%,
+    #1a0a00 100%
+  );
+}
+
+.wcs-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to top,
+    rgba(0, 0, 0, 0.5) 0%,
+    rgba(0, 0, 0, 0.3) 100%
+  );
+}
+
+.wcs-lock {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  z-index: 5;
+}
+
+.wcs-lock-icon {
+  font-size: 36px;
+}
+
+.wcs-lock-text {
+  font-family: 'Space Mono', monospace;
+  font-size: 11px;
+  color: rgba(255, 255, 255, 0.5);
+  letter-spacing: 1px;
+}
+
+.wcs-content {
+  position: relative;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  padding: 24px;
+  text-align: center;
+}
+
+.wcs-crown {
+  font-size: 40px;
+  filter: drop-shadow(0 0 15px rgba(255, 215, 0, 0.8));
+  animation: crownPulse 2s ease-in-out infinite alternate;
+}
+
+@keyframes crownPulse {
+  0%   { filter: drop-shadow(0 0 10px rgba(255,215,0,0.5)); }
+  100% { filter: drop-shadow(0 0 25px rgba(255,215,0,1)); }
+}
+
+.wcs-title {
+  font-family: 'Cinzel', serif;
+  font-size: clamp(18px, 3vw, 32px);
+  font-weight: 700;
+  color: #ffd700;
+  margin: 0;
+  letter-spacing: 3px;
+  text-shadow:
+    0 0 10px rgba(255, 215, 0, 0.8),
+    0 0 30px rgba(255, 215, 0, 0.4);
+}
+
+.wcs-subtitle {
+  font-family: 'Space Mono', monospace;
+  font-size: clamp(9px, 1.2vw, 12px);
+  color: rgba(255, 215, 0, 0.6);
+  margin: 0;
+  letter-spacing: 2px;
+}
+
+.wcs-badges-required {
+  font-family: 'Space Mono', monospace;
+  font-size: 10px;
+  color: rgba(255, 255, 255, 0.4);
+  border: 1px solid rgba(255, 215, 0, 0.3);
+  padding: 4px 12px;
+  border-radius: 20px;
+  margin-top: 4px;
+}
+.wcs-card-bg {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  border-radius: 14px;
+  transition: transform 0.4s ease;
+}
+
+.wcs-unlocked:hover .wcs-card-bg {
+  transform: scale(1.03);
+}
+
+.card-button {
+  position: relative;
+}
+
+.card-button:hover .card-locked-tooltip {
+  opacity: 1 !important;
+}
+
+/* ── WCS CARD MOBILE FIXES ── */
+@media (max-width: 768px) {
+  .wcs-section {
+    padding: 0 16px 24px 16px;
+  }
+
+  .wcs-card {
+    min-height: 280px;
+  }
+
+  .wcs-crown {
+    font-size: 32px;
+  }
+
+  .wcs-content {
+    padding: 16px;
+    gap: 6px;
+  }
+
+  .wcs-badges-required {
+    font-size: 9px;
+    padding: 3px 10px;
+  }
+}
+
+@media (max-width: 480px) {
+  .wcs-card {
+    min-height: 220px;
+    border-radius: 12px;
+  }
+
+  .wcs-title {
+    letter-spacing: 1px;
+  }
+
+  .wcs-subtitle {
+    letter-spacing: 1px;
+  }
+
+  .wcs-lock-icon {
+    font-size: 28px;
+  }
+
+  .wcs-lock-text {
+    font-size: 10px;
+    padding: 0 20px;
+    text-align: center;
+  }
+}
+
+/* ── REGION CARD TEXT TIGHTENING ── */
+@media (max-width: 480px) {
+  .region-card-content {
+    padding: 14px;
+    gap: 6px;
+  }
+
+  .region-name {
+    font-size: 17px;
+  }
+
+  .region-badges {
+    font-size: 10px;
+  }
+}

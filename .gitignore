@@ -1,0 +1,22 @@
+# Node
+node_modules/
+dist/
+.env
+.env.local
+
+# Python
+__pycache__/
+*.pyc
+venv/
+.env
+
+# ML model files (optional - can keep if you want them in repo)
+*.pkl
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/

@@ -1,0 +1,460 @@
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=Space+Mono:wght@400;700&display=swap');
+
+.cc-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.92);
+  backdrop-filter: blur(8px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  padding: 20px;
+}
+
+.cc-wrapper {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+
+.cc-close {
+  position: fixed;
+  top: 20px;
+  right: 24px;
+  background: rgba(255,215,0,0.1);
+  border: 1px solid rgba(255,215,0,0.4);
+  border-radius: 8px;
+  color: rgba(255,215,0,0.7);
+  font-family: 'Space Mono', monospace;
+  font-size: 11px;
+  padding: 8px 16px;
+  cursor: pointer;
+  letter-spacing: 2px;
+  transition: all 0.2s ease;
+}
+
+.cc-close:hover {
+  background: rgba(255,215,0,0.2);
+  color: #ffd700;
+}
+
+/* THE CARD */
+.cc-card {
+  position: relative;
+  width: 100%;
+  max-width: 360px;
+  background: linear-gradient(160deg, #1a1200 0%, #0d0900 40%, #1a0a00 70%, #0d0a00 100%);
+  border: 2px solid #ffd700;
+  border-radius: 16px;
+  padding: clamp(16px, 3vw, 24px);
+  overflow: hidden;
+  cursor: default;
+  box-shadow:
+    0 0 40px rgba(255,215,0,0.5),
+    0 0 80px rgba(255,215,0,0.25),
+    0 0 120px rgba(255,215,0,0.1),
+    inset 0 0 40px rgba(255,215,0,0.05);
+}
+
+/* SHINE EFFECTS */
+.cc-shine {
+  position: absolute;
+  top: -50%; left: -50%;
+  width: 200%; height: 200%;
+  background: linear-gradient(
+    135deg,
+    transparent 0%,
+    rgba(255,215,0,0.08) 20%,
+    transparent 40%,
+    rgba(255,215,0,0.05) 60%,
+    transparent 80%
+  );
+  animation: ccShimmer1 3s linear infinite;
+  pointer-events: none;
+}
+
+.cc-shine-2 {
+  position: absolute;
+  top: -50%; left: -50%;
+  width: 200%; height: 200%;
+  background: linear-gradient(
+    45deg,
+    transparent 0%,
+    rgba(255,255,255,0.04) 30%,
+    transparent 60%
+  );
+  animation: ccShimmer2 4s linear infinite 1.5s;
+  pointer-events: none;
+}
+
+@keyframes ccShimmer1 {
+  0%   { transform: translateX(-100%) translateY(-100%) rotate(-45deg); }
+  100% { transform: translateX(100%) translateY(100%) rotate(-45deg); }
+}
+
+@keyframes ccShimmer2 {
+  0%   { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
+  100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
+}
+
+/* GOLD PARTICLES */
+.cc-particles { position: absolute; inset: 0; pointer-events: none; overflow: hidden; }
+
+.cc-particle {
+  position: absolute;
+  bottom: -5px;
+  width: 3px; height: 3px;
+  background: #ffd700;
+  border-radius: 50%;
+  box-shadow: 0 0 6px #ffd700;
+  animation: ccParticleFloat linear infinite;
+}
+
+@keyframes ccParticleFloat {
+  0%   { transform: translateY(0) scale(1); opacity: 1; }
+  100% { transform: translateY(-100%) scale(0); opacity: 0; }
+}
+
+/* TOP ROW */
+.cc-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+  position: relative;
+  z-index: 1;
+}
+
+.cc-champion-badge {
+  border: 2px solid #ffd700;
+  border-radius: 20px;
+  padding: 4px 12px;
+  font-family: 'Space Mono', monospace;
+  font-size: 8px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  color: #ffd700;
+  text-shadow: 0 0 8px rgba(255,215,0,0.8);
+  box-shadow: 0 0 10px rgba(255,215,0,0.3);
+  background: rgba(255,215,0,0.08);
+}
+
+.cc-hp {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: rgba(255,215,0,0.06);
+  border: 1px solid rgba(255,215,0,0.3);
+  border-radius: 8px;
+  padding: 4px 10px;
+}
+
+.cc-hp-label {
+  font-family: 'Space Mono', monospace;
+  font-size: 8px;
+  color: rgba(255,215,0,0.5);
+  letter-spacing: 2px;
+}
+
+.cc-hp-value {
+  font-family: 'Cinzel', serif;
+  font-size: 20px;
+  font-weight: 900;
+  color: #ffd700;
+  text-shadow: 0 0 10px rgba(255,215,0,0.8);
+}
+
+/* TROPHY ZONE */
+.cc-trophy-zone {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 160px;
+  margin: 8px 0;
+  z-index: 1;
+}
+
+.cc-trophy-glow {
+  position: absolute;
+  inset: 0;
+  border: 2px solid rgba(255,215,0,0.6);
+  border-radius: 10px;
+  box-shadow:
+    0 0 20px rgba(255,215,0,0.4),
+    inset 0 0 30px rgba(255,215,0,0.08);
+  animation: trophyGlowPulse 2s ease-in-out infinite;
+}
+
+@keyframes trophyGlowPulse {
+  0%, 100% { box-shadow: 0 0 15px rgba(255,215,0,0.4), inset 0 0 20px rgba(255,215,0,0.05); }
+  50%       { box-shadow: 0 0 35px rgba(255,215,0,0.8), inset 0 0 40px rgba(255,215,0,0.12); }
+}
+
+.cc-trophy-emoji {
+  font-size: 80px;
+  position: relative;
+  z-index: 2;
+  filter: drop-shadow(0 0 20px rgba(255,215,0,1)) drop-shadow(0 0 40px rgba(255,215,0,0.6));
+  animation: trophyFloat 2.5s ease-in-out infinite;
+}
+
+@keyframes trophyFloat {
+  0%, 100% { transform: translateY(0) scale(1); }
+  50%       { transform: translateY(-8px) scale(1.05); }
+}
+
+/* RAYS */
+.cc-trophy-rays {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1;
+}
+
+.cc-ray {
+  position: absolute;
+  width: 2px;
+  height: 60px;
+  background: linear-gradient(to top, transparent, rgba(255,215,0,0.3), transparent);
+  transform-origin: center bottom;
+  animation: rayPulse 2s ease-in-out infinite;
+}
+
+@keyframes rayPulse {
+  0%, 100% { opacity: 0.3; height: 50px; }
+  50%       { opacity: 0.7; height: 70px; }
+}
+
+/* PLAYER INFO */
+.cc-player-info {
+  text-align: center;
+  margin-bottom: 10px;
+  position: relative;
+  z-index: 1;
+}
+
+.cc-player-name {
+  font-family: 'Cinzel', serif;
+  font-size: clamp(18px, 4vw, 24px);
+  font-weight: 900;
+  color: #ffd700;
+  letter-spacing: 3px;
+  text-shadow: 0 0 15px rgba(255,215,0,0.8);
+}
+
+.cc-trainer-id {
+  font-family: 'Space Mono', monospace;
+  font-size: 9px;
+  color: rgba(255,215,0,0.3);
+  letter-spacing: 1px;
+  margin-top: 2px;
+}
+
+.cc-champion-title {
+  font-family: 'Space Mono', monospace;
+  font-size: 10px;
+  color: rgba(255,215,0,0.6);
+  letter-spacing: 3px;
+  margin-top: 4px;
+  text-transform: uppercase;
+}
+
+/* TYPES */
+.cc-types {
+  display: flex;
+  gap: 6px;
+  justify-content: center;
+  margin-bottom: 10px;
+  position: relative;
+  z-index: 1;
+}
+
+.cc-type {
+  padding: 3px 12px;
+  border-radius: 10px;
+  font-family: 'Space Mono', monospace;
+  font-size: 8px;
+  font-weight: 700;
+  background: #ffd700;
+  color: #000;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  box-shadow: 0 0 8px rgba(255,215,0,0.5);
+}
+
+/* STATS */
+.cc-stats {
+  background: rgba(0,0,0,0.4);
+  border-radius: 8px;
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid rgba(255,215,0,0.15);
+  position: relative;
+  z-index: 1;
+}
+
+.cc-stat-row { margin-bottom: 8px; }
+.cc-stat-row:last-child { margin-bottom: 0; }
+
+.cc-stat-header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 3px;
+}
+
+.cc-stat-label {
+  font-family: 'Space Mono', monospace;
+  font-size: 8px;
+  color: rgba(255,215,0,0.4);
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.cc-stat-value {
+  font-family: 'Space Mono', monospace;
+  font-size: 9px;
+  color: #ffd700;
+  font-weight: 700;
+}
+
+.cc-stat-track {
+  width: 100%;
+  height: 4px;
+  background: rgba(255,255,255,0.06);
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.cc-stat-fill {
+  height: 100%;
+  border-radius: 2px;
+  background: linear-gradient(90deg, #b8860b, #ffd700, #ffed4e);
+  box-shadow: 0 0 8px rgba(255,215,0,0.6);
+  animation: ccFillIn 1.2s ease-out forwards;
+}
+
+@keyframes ccFillIn {
+  from { width: 0 !important; }
+}
+
+/* BADGES */
+.cc-badges-row {
+  display: flex;
+  justify-content: center;
+  gap: 6px;
+  margin-bottom: 4px;
+  flex-wrap: wrap;
+  position: relative;
+  z-index: 1;
+}
+
+.cc-badge-dot {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: #ffd700;
+  border: 1px solid #ffed4e;
+  box-shadow: 0 0 8px rgba(255,215,0,0.7);
+  animation: ccBadgePop 0.4s ease-out both;
+}
+
+@keyframes ccBadgePop {
+  0%   { transform: scale(0); opacity: 0; }
+  70%  { transform: scale(1.3); }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+.cc-badge-label {
+  font-family: 'Space Mono', monospace;
+  font-size: 8px;
+  color: rgba(255,215,0,0.4);
+  text-align: center;
+  letter-spacing: 2px;
+  margin-bottom: 10px;
+  position: relative;
+  z-index: 1;
+}
+
+/* RANK */
+.cc-rank {
+  border: 2px solid #ffd700;
+  border-radius: 999px;
+  padding: 10px 20px;
+  font-family: 'Cinzel', serif;
+  font-size: clamp(10px, 1.5vw, 13px);
+  font-weight: 700;
+  letter-spacing: 4px;
+  text-align: center;
+  text-transform: uppercase;
+  color: #ffd700;
+  background: rgba(255,215,0,0.08);
+  box-shadow: 0 0 20px rgba(255,215,0,0.4), inset 0 0 15px rgba(255,215,0,0.05);
+  margin-bottom: 8px;
+  position: relative;
+  z-index: 1;
+}
+
+/* CARD NUMBER */
+.cc-card-num {
+  font-family: 'Space Mono', monospace;
+  font-size: 8px;
+  text-align: right;
+  color: rgba(255,215,0,0.3);
+  letter-spacing: 1px;
+  position: relative;
+  z-index: 1;
+}
+
+@media (max-width: 480px) {
+  .cc-overlay {
+    padding: 12px;
+  }
+
+  .cc-card {
+    max-width: 100%;
+    padding: 16px;
+  }
+
+  .cc-close {
+    top: 12px;
+    right: 12px;
+    padding: 6px 12px;
+    font-size: 10px;
+  }
+
+  .cc-trophy-zone {
+    height: 130px;
+  }
+
+  .cc-trophy-emoji {
+    font-size: 60px;
+  }
+
+  .cc-player-name {
+    font-size: 18px;
+  }
+
+  .cc-champion-title {
+    font-size: 9px;
+  }
+
+  .cc-stats {
+    padding: 8px;
+  }
+
+  .cc-badge-dot {
+    width: 18px;
+    height: 18px;
+  }
+
+  .cc-rank {
+    padding: 8px 16px;
+    font-size: 10px;
+  }
+}

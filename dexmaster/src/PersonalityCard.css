@@ -1,0 +1,446 @@
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Space+Mono:wght@400;700&display=swap');
+
+html, body {
+  overflow-x: hidden;
+}
+
+.pc-screen {
+  position: fixed;
+  inset: 0;
+  background: radial-gradient(ellipse at center, #1a0a2e 0%, #0a0000 70%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  z-index: 4000;
+  overflow-y: scroll;
+  -webkit-overflow-scrolling: touch;
+}
+
+.pc-screen::after {
+  content: '';
+  display: block;
+  height: 60px;
+  flex-shrink: 0;
+}
+
+.pc-close-btn {
+  position: fixed;
+  top: 20px;
+  right: 24px;
+  background: rgba(255,140,0,0.1);
+  border: 1px solid rgba(255,140,0,0.4);
+  border-radius: 8px;
+  color: rgba(255,140,0,0.7);
+  font-family: 'Space Mono', monospace;
+  font-size: 11px;
+  padding: 8px 16px;
+  cursor: pointer;
+  letter-spacing: 2px;
+  transition: all 0.2s ease;
+  z-index: 4001;
+}
+
+.pc-close-btn:hover {
+  background: rgba(255,140,0,0.2);
+  border-color: #ff8c00;
+  color: #ff8c00;
+}
+
+/* CARD */
+.pc-card {
+  position: relative;
+  width: 100%;
+  max-width: 360px;
+  background: linear-gradient(160deg, #1a1028 0%, #0d0818 50%, #1a1028 100%);
+  border: 2px solid;
+  border-radius: 16px;
+  padding: clamp(16px, 3vw, 24px);
+  overflow: hidden;
+  cursor: default;
+}
+
+/* SHINE */
+.pc-shine {
+  position: absolute;
+  top: -50%; left: -50%;
+  width: 200%; height: 200%;
+  background: linear-gradient(
+    135deg,
+    transparent 0%,
+    rgba(255,255,255,0.06) 25%,
+    transparent 50%,
+    rgba(255,255,255,0.03) 75%,
+    transparent 100%
+  );
+  animation: pcShimmer 5s linear infinite;
+  pointer-events: none;
+}
+
+@keyframes pcShimmer {
+  0%   { transform: translateX(-100%) translateY(-100%) rotate(-45deg); }
+  100% { transform: translateX(100%) translateY(100%) rotate(-45deg); }
+}
+
+/* TOP ROW */
+.pc-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+  position: relative;
+  z-index: 1;
+}
+
+.pc-personality-badge {
+  border: 2px solid;
+  border-radius: 20px;
+  padding: 4px 12px;
+  font-family: 'Space Mono', monospace;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+.pc-hp {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 8px;
+  padding: 4px 10px;
+}
+
+.pc-hp-label {
+  font-family: 'Space Mono', monospace;
+  font-size: 8px;
+  color: rgba(255,255,255,0.4);
+  letter-spacing: 2px;
+}
+
+.pc-hp-value {
+  font-family: 'Cinzel', serif;
+  font-size: 18px;
+  font-weight: 700;
+}
+
+/* IMAGE ZONE */
+.pc-image-zone {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 180px;
+  margin: 8px 0;
+  z-index: 1;
+  background: radial-gradient(ellipse at center, rgba(255,255,255,0.04) 0%, transparent 70%);
+  border-radius: 10px;
+}
+
+.pc-image-glow {
+  position: absolute;
+  inset: 0;
+  border: 2px solid;
+  border-radius: 10px;
+  animation: pcGlowPulse 3s ease-in-out infinite;
+}
+
+@keyframes pcGlowPulse {
+  0%, 100% { opacity: 0.6; }
+  50%       { opacity: 1; }
+}
+
+.pc-pokemon-img {
+  width: 150px;
+  height: 150px;
+  object-fit: contain;
+  position: relative;
+  z-index: 2;
+}
+
+/* PLAYER INFO */
+.pc-player-info {
+  text-align: center;
+  margin-bottom: 10px;
+  position: relative;
+  z-index: 1;
+}
+
+.pc-player-name {
+  font-family: 'Cinzel', serif;
+  font-size: clamp(16px, 3vw, 20px);
+  font-weight: 700;
+  color: #fff;
+  letter-spacing: 2px;
+}
+
+.pc-trainer-id {
+  font-family: 'Space Mono', monospace;
+  font-size: 9px;
+  color: rgba(255,255,255,0.3);
+  letter-spacing: 1px;
+  margin-top: 2px;
+}
+
+.pc-personality-title {
+  font-family: 'Space Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 3px;
+  margin-top: 4px;
+  text-transform: uppercase;
+}
+
+/* TYPES */
+.pc-types {
+  display: flex;
+  gap: 6px;
+  justify-content: center;
+  margin-bottom: 10px;
+  position: relative;
+  z-index: 1;
+}
+
+.pc-type-badge {
+  padding: 3px 12px;
+  border-radius: 10px;
+  font-family: 'Space Mono', monospace;
+  font-size: 9px;
+  font-weight: 700;
+  color: #000;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+/* DESCRIPTION */
+.pc-description {
+  font-family: 'Space Mono', monospace;
+  font-size: 9px;
+  color: rgba(255,255,255,0.45);
+  text-align: center;
+  line-height: 1.6;
+  padding: 8px 12px;
+  border-top: 1px solid rgba(255,255,255,0.06);
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+  margin-bottom: 10px;
+  position: relative;
+  z-index: 1;
+  font-style: italic;
+}
+
+/* STATS */
+.pc-stats {
+  background: rgba(0,0,0,0.3);
+  border-radius: 8px;
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid rgba(255,255,255,0.06);
+  position: relative;
+  z-index: 1;
+}
+
+.pc-stat-row { margin-bottom: 8px; }
+.pc-stat-row:last-child { margin-bottom: 0; }
+
+.pc-stat-header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 3px;
+}
+
+.pc-stat-label {
+  font-family: 'Space Mono', monospace;
+  font-size: 8px;
+  color: rgba(255,255,255,0.4);
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.pc-stat-value {
+  font-family: 'Space Mono', monospace;
+  font-size: 9px;
+  color: #fff;
+  font-weight: 700;
+}
+
+.pc-stat-track {
+  width: 100%;
+  height: 4px;
+  background: rgba(255,255,255,0.08);
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.pc-stat-fill {
+  height: 100%;
+  border-radius: 2px;
+  animation: pcFillIn 1s ease-out forwards;
+}
+
+@keyframes pcFillIn {
+  from { width: 0 !important; }
+}
+
+/* STRENGTH / WEAKNESS */
+.pc-sw-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  margin-bottom: 10px;
+  position: relative;
+  z-index: 1;
+}
+
+.pc-strength, .pc-weakness {
+  background: rgba(0,0,0,0.3);
+  border-radius: 8px;
+  padding: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  border: 1px solid rgba(255,255,255,0.06);
+}
+
+.pc-sw-label {
+  font-family: 'Space Mono', monospace;
+  font-size: 8px;
+  color: rgba(255,255,255,0.5);
+  letter-spacing: 1px;
+}
+
+.pc-sw-text {
+  font-family: 'Space Mono', monospace;
+  font-size: 8px;
+  color: rgba(255,255,255,0.7);
+  line-height: 1.5;
+}
+
+/* BADGES */
+.pc-badges-row {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin-bottom: 4px;
+  flex-wrap: wrap;
+  position: relative;
+  z-index: 1;
+}
+
+.pc-badge-dot {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.12);
+  transition: all 0.3s ease;
+}
+
+.pc-badge-dot.earned {
+  animation: pcBadgePop 0.4s ease-out forwards;
+}
+
+@keyframes pcBadgePop {
+  0%   { transform: scale(0); }
+  70%  { transform: scale(1.2); }
+  100% { transform: scale(1); }
+}
+
+.pc-badge-label {
+  font-family: 'Space Mono', monospace;
+  font-size: 8px;
+  color: rgba(255,255,255,0.3);
+  text-align: center;
+  letter-spacing: 2px;
+  margin-bottom: 10px;
+  position: relative;
+  z-index: 1;
+}
+
+/* RANK */
+.pc-rank {
+  border: 2px solid;
+  border-radius: 999px;
+  padding: 8px 16px;
+  font-family: 'Cinzel', serif;
+  font-size: clamp(9px, 1.5vw, 12px);
+  font-weight: 700;
+  letter-spacing: 3px;
+  text-align: center;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+  position: relative;
+  z-index: 1;
+}
+
+/* CARD NUMBER */
+.pc-card-number {
+  font-family: 'Space Mono', monospace;
+  font-size: 8px;
+  text-align: right;
+  letter-spacing: 1px;
+  position: relative;
+  z-index: 1;
+}
+
+@media (max-width: 400px) {
+  .pc-card { padding: 14px; }
+  .pc-pokemon-img { width: 120px; height: 120px; }
+  .pc-image-zone { height: 150px; }
+}
+
+.pc-tabs {
+  display: flex;
+  gap: 10px;
+  margin-top: 90px;
+  margin-bottom: 24px;
+  position: relative;
+  z-index: 10;
+  flex-shrink: 0;
+}
+
+.pc-tab {
+  font-family: 'Space Mono', monospace;
+  font-size: 11px;
+  padding: 10px 20px;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.15);
+  border-radius: 999px;
+  color: rgba(255,255,255,0.5);
+  cursor: pointer;
+  letter-spacing: 1px;
+  transition: all 0.2s ease;
+}
+
+.pc-tab:hover:not(.pc-tab-locked) {
+  background: rgba(255,255,255,0.08);
+  color: rgba(255,255,255,0.8);
+}
+
+.pc-tab-active {
+  background: rgba(255,140,0,0.15);
+  border-color: #ff8c00;
+  color: #ff8c00;
+  box-shadow: 0 0 14px rgba(255,140,0,0.3);
+}
+
+.pc-tab-locked {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.pc-locked-message {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+  padding: 60px 24px;
+  text-align: center;
+  max-width: 320px;
+}
+
+.pc-locked-message p {
+  font-family: 'Space Mono', monospace;
+  font-size: 12px;
+  color: rgba(255,255,255,0.5);
+  line-height: 1.6;
+}

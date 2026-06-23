@@ -1,0 +1,881 @@
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Space+Mono:wght@400;700&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.quiz-screen {
+  width: 100%;
+  height: 100vh;
+  background-color: #0a0000;
+  display: flex;
+  flex-direction: column;
+  font-family: 'Space Mono', monospace;
+  color: #ffffff;
+  overflow: hidden;
+}
+
+/* ============ NAVBAR ============ */
+.quiz-navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 30px;
+  background-color: #110500;
+  border-bottom: 2px solid rgba(255, 140, 0, 0.5);
+  height: 72px;
+  flex-shrink: 0;
+}
+
+.navbar-left { flex: 1; }
+
+.region-name {
+  font-family: 'Cinzel', serif;
+  font-size: clamp(18px, 2.5vw, 28px);
+  font-weight: 700;
+  color: #ff8c00;
+  text-shadow: 0 0 10px rgba(255,140,0,0.8), 0 0 20px rgba(255,140,0,0.4);
+  letter-spacing: 2px;
+}
+
+.navbar-center {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+}
+
+/* POKEBALL BADGE CASE BUTTON */
+.badge-case-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.badge-case-btn:hover {
+  transform: scale(1.1);
+}
+
+.pokeball-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 3px solid #ff8c00;
+  overflow: hidden;
+  position: relative;
+  box-shadow:
+    0 0 12px rgba(255,140,0,0.7),
+    0 0 25px rgba(255,140,0,0.4);
+  transition: box-shadow 0.2s ease;
+}
+
+.badge-case-btn:hover .pokeball-icon {
+  box-shadow:
+    0 0 20px rgba(255,140,0,1),
+    0 0 40px rgba(255,140,0,0.7);
+}
+
+.pokeball-top {
+  height: 50%;
+  background: linear-gradient(135deg, #8b6914, #d4af37);
+}
+
+.pokeball-middle {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100%;
+  height: 4px;
+  background: #ff8c00;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2;
+}
+
+.pokeball-center {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: #ffd700;
+  border: 2px solid #8b6914;
+  box-shadow: 0 0 6px rgba(255,215,0,0.8);
+}
+
+.pokeball-bottom {
+  height: 50%;
+  background: #1a1a1a;
+  margin-top: 2px;
+}
+
+.badge-case-label {
+  font-family: 'Space Mono', monospace;
+  font-size: 8px;
+  color: rgba(255,140,0,0.7);
+  letter-spacing: 2px;
+}
+
+/* TRAINER CHIP */
+.navbar-right {
+  flex: 1;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.trainer-chip-quiz {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 6px 14px;
+  border: 1px solid rgba(255,140,0,0.4);
+  border-radius: 20px;
+  background: rgba(255,140,0,0.06);
+}
+
+.trainer-avatar-quiz {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #ff8c00, #c0392b);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 13px;
+  color: #000;
+  font-family: 'Space Mono', monospace;
+}
+
+.trainer-name-quiz {
+  font-family: 'Space Mono', monospace;
+  font-size: 13px;
+  color: #fff;
+  letter-spacing: 1px;
+}
+
+/* ============ QUIZ LAYOUT ============ */
+.quiz-container {
+  display: flex;
+  flex: 1;
+  overflow: hidden;
+}
+
+/* ============ PRIZE LADDER ============ */
+.prize-ladder {
+  width: 180px;
+  background-color: #110500;
+  border-right: 2px solid rgba(255,140,0,0.4);
+  padding: 16px 12px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.ladder-title {
+  font-family: 'Cinzel', serif;
+  font-size: 13px;
+  font-weight: 700;
+  color: rgba(255,140,0,0.6);
+  text-align: center;
+  letter-spacing: 3px;
+  margin-bottom: 6px;
+  text-transform: uppercase;
+}
+
+.ladder-item {
+  padding: 10px 12px;
+  border-radius: 8px;
+  background: rgba(255,255,255,0.02);
+  border: 1px solid rgba(255,255,255,0.06);
+  transition: all 0.2s ease;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.ladder-item.current {
+  background: rgba(255,140,0,0.12);
+  border-color: #ff8c00;
+  box-shadow: 0 0 12px rgba(255,140,0,0.3);
+}
+
+.ladder-item.completed {
+  background: rgba(255,215,0,0.06);
+  border-color: rgba(255,215,0,0.4);
+}
+
+.ladder-item.future {
+  opacity: 0.3;
+}
+
+.ladder-item.league-item {
+  background: rgba(255,215,0,0.08);
+  border-color: rgba(255,215,0,0.5);
+}
+
+.ladder-item.league-item.current {
+  background: rgba(255,215,0,0.18);
+  border-color: #ffd700;
+  box-shadow: 0 0 16px rgba(255,215,0,0.5);
+}
+
+.level-marker {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.badge-icon { font-size: 14px; }
+
+.level-number {
+  font-family: 'Cinzel', serif;
+  font-size: 15px;
+  font-weight: 700;
+  color: #ff8c00;
+}
+
+.league-item .level-number { color: #ffd700; }
+
+.level-label {
+  font-size: 10px;
+  color: rgba(255,255,255,0.5);
+  letter-spacing: 0.5px;
+}
+
+/* ============ MAIN QUIZ AREA ============ */
+.quiz-main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: clamp(20px, 3vw, 40px);
+  gap: clamp(16px, 2.5vh, 28px);
+  overflow-y: auto;
+}
+
+/* LEVEL INDICATOR */
+.level-indicator {
+  background: rgba(255,140,0,0.08);
+  border: 1px solid rgba(255,140,0,0.3);
+  border-radius: 20px;
+  padding: 6px 20px;
+}
+
+.level-indicator-text {
+  font-family: 'Space Mono', monospace;
+  font-size: 12px;
+  color: rgba(255,140,0,0.8);
+  letter-spacing: 2px;
+}
+
+/* QUESTION CARD */
+.question-card {
+  width: 100%;
+  max-width: 720px;
+  background: rgba(255,140,0,0.04);
+  border: 2px solid rgba(255,140,0,0.5);
+  border-radius: 16px;
+  padding: clamp(24px, 3vw, 44px) clamp(20px, 3vw, 40px);
+  box-shadow:
+    0 0 20px rgba(255,140,0,0.15),
+    inset 0 0 40px rgba(255,140,0,0.03);
+}
+
+.question-text {
+  font-family: 'Cinzel', serif;
+  font-size: clamp(16px, 2.2vw, 26px);
+  font-weight: 600;
+  color: #ffffff;
+  text-align: center;
+  line-height: 1.6;
+}
+
+/* OPTIONS GRID */
+.options-grid {
+  width: 100%;
+  max-width: 720px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(12px, 1.5vw, 20px);
+}
+
+.option-btn {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: clamp(14px, 2vh, 22px) clamp(16px, 2vw, 24px);
+  background: rgba(255,140,0,0.04);
+  border: 2px solid rgba(255,140,0,0.4);
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-align: left;
+}
+
+.option-btn:hover:not(.disabled) {
+  background: rgba(255,140,0,0.1);
+  border-color: #ff8c00;
+  box-shadow: 0 0 16px rgba(255,140,0,0.4);
+  transform: translateY(-2px);
+}
+
+.option-btn.disabled { cursor: not-allowed; }
+
+.option-btn.correct {
+  background: rgba(0,200,80,0.12);
+  border-color: #00c850;
+  box-shadow: 0 0 20px rgba(0,200,80,0.5);
+}
+
+.option-btn.wrong {
+  background: rgba(220,50,50,0.12);
+  border-color: #dc3232;
+  box-shadow: 0 0 20px rgba(220,50,50,0.5);
+}
+
+.option-label {
+  font-family: 'Cinzel', serif;
+  font-size: clamp(16px, 2vw, 22px);
+  font-weight: 700;
+  color: #ff8c00;
+  min-width: 28px;
+  flex-shrink: 0;
+}
+
+.option-text {
+  font-family: 'Space Mono', monospace;
+  font-size: clamp(11px, 1.3vw, 14px);
+  color: #ffffff;
+  line-height: 1.4;
+}
+
+/* LIFELINES */
+.lifelines-container {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.lifeline-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 28px;
+  background: rgba(255,140,0,0.06);
+  border: 2px solid rgba(255,140,0,0.6);
+  border-radius: 8px;
+  color: #ff8c00;
+  font-family: 'Space Mono', monospace;
+  font-size: clamp(11px, 1.3vw, 14px);
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  letter-spacing: 1px;
+  box-shadow: 0 0 10px rgba(255,140,0,0.2);
+}
+
+.lifeline-btn:hover:not(:disabled) {
+  background: rgba(255,140,0,0.14);
+  box-shadow: 0 0 20px rgba(255,140,0,0.6);
+  transform: scale(1.04);
+}
+
+.lifeline-btn.used,
+.lifeline-btn:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+  box-shadow: none;
+  transform: none;
+}
+
+.lifeline-icon { font-size: 16px; }
+
+/* ============ BADGE CASE MODAL ============ */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.88);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  backdrop-filter: blur(4px);
+}
+
+.badge-modal {
+  position: relative;
+  width: clamp(320px, 85vw, 680px);
+  max-height: 88vh;
+  overflow-y: auto;
+  background: linear-gradient(160deg, #1a0800 0%, #120500 60%, #1a0800 100%);
+  border: 3px solid rgba(255,215,0,0.6);
+  border-radius: 20px;
+  padding: clamp(24px, 4vw, 48px);
+  box-shadow:
+    0 0 40px rgba(255,215,0,0.25),
+    0 0 80px rgba(255,140,0,0.15),
+    inset 0 0 60px rgba(255,140,0,0.04);
+}
+
+.modal-close-btn {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: rgba(255,140,0,0.15);
+  border: 2px solid rgba(255,140,0,0.5);
+  color: #ff8c00;
+  font-size: 16px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+  font-weight: 700;
+}
+
+.modal-close-btn:hover {
+  background: rgba(255,140,0,0.3);
+  box-shadow: 0 0 12px rgba(255,140,0,0.5);
+}
+
+.modal-title {
+  font-family: 'Cinzel', serif;
+  font-size: clamp(22px, 4vw, 36px);
+  font-weight: 700;
+  color: #ffd700;
+  text-align: center;
+  margin-bottom: 4px;
+  letter-spacing: 4px;
+  text-shadow:
+    0 0 10px rgba(255,215,0,0.8),
+    0 0 25px rgba(255,215,0,0.4);
+}
+
+.modal-region {
+  font-family: 'Space Mono', monospace;
+  font-size: 11px;
+  color: rgba(255,215,0,0.5);
+  text-align: center;
+  letter-spacing: 3px;
+  margin-bottom: 32px;
+}
+
+.badges-section {
+  margin-bottom: 32px;
+}
+
+.section-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: 'Cinzel', serif;
+  font-size: 14px;
+  font-weight: 700;
+  color: rgba(255,215,0,0.8);
+  letter-spacing: 2px;
+  margin-bottom: 20px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid rgba(255,215,0,0.2);
+}
+
+.section-icon { font-size: 16px; }
+
+/* BADGE GRID */
+.badges-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+}
+
+.badge-slot {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+}
+
+.badge-slot-inner {
+  width: clamp(52px, 8vw, 72px);
+  height: clamp(52px, 8vw, 72px);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.badge-slot.empty .badge-slot-inner {
+  background: radial-gradient(circle at 35% 35%, #1a1a2a, #0d0d1a);
+  border: 2px solid rgba(255,255,255,0.08);
+}
+
+.badge-slot.earned .badge-slot-inner {
+  background: radial-gradient(circle at 35% 35%, #2a3a1a, #1a2a0a);
+  border: 2px solid rgba(255,215,0,0.7);
+  box-shadow:
+    0 0 14px rgba(255,215,0,0.5),
+    0 0 28px rgba(255,215,0,0.2),
+    inset 0 0 10px rgba(255,215,0,0.1);
+}
+
+.badge-emoji {
+  font-size: clamp(22px, 3.5vw, 32px);
+  filter: drop-shadow(0 0 4px rgba(255,215,0,0.6));
+}
+
+.badge-number {
+  font-family: 'Space Mono', monospace;
+  font-size: 12px;
+  color: rgba(255,255,255,0.2);
+  font-weight: 700;
+}
+
+.badge-slot-label {
+  font-family: 'Space Mono', monospace;
+  font-size: 8px;
+  color: rgba(255,255,255,0.35);
+  letter-spacing: 1px;
+  text-align: center;
+}
+
+.badge-slot.earned .badge-slot-label {
+  color: rgba(255,215,0,0.6);
+}
+
+/* LEAGUE BADGE */
+.league-badge-container {
+  display: flex;
+  justify-content: center;
+}
+
+.league-slot .badge-slot-inner {
+  width: clamp(80px, 12vw, 110px);
+  height: clamp(80px, 12vw, 110px);
+}
+
+.league-slot.earned .badge-slot-inner {
+  background: radial-gradient(circle at 35% 35%, #3a3a0a, #2a2a00);
+  border: 3px solid #ffd700;
+  box-shadow:
+    0 0 24px rgba(255,215,0,0.7),
+    0 0 50px rgba(255,215,0,0.35),
+    inset 0 0 20px rgba(255,215,0,0.15);
+}
+
+.league-slot .badge-emoji {
+  font-size: clamp(36px, 5vw, 52px);
+}
+
+/* SCROLLBAR */
+.prize-ladder::-webkit-scrollbar,
+.badge-modal::-webkit-scrollbar { width: 6px; }
+
+.prize-ladder::-webkit-scrollbar-track,
+.badge-modal::-webkit-scrollbar-track { background: #0a0000; }
+
+.prize-ladder::-webkit-scrollbar-thumb,
+.badge-modal::-webkit-scrollbar-thumb {
+  background: rgba(255,140,0,0.4);
+  border-radius: 3px;
+}
+
+/* ============ RESPONSIVE ============ */
+@media (max-width: 768px) {
+  .quiz-container { flex-direction: column; }
+
+  .prize-ladder {
+    width: 100%;
+    height: 80px;
+    flex-direction: row;
+    border-right: none;
+    border-bottom: 2px solid rgba(255,140,0,0.4);
+    overflow-x: auto;
+    overflow-y: hidden;
+    padding: 10px;
+    gap: 8px;
+  }
+
+  .ladder-item {
+    flex-direction: row;
+    flex-shrink: 0;
+    min-width: 80px;
+    padding: 6px 10px;
+  }
+
+  .level-label { display: none; }
+
+  .options-grid { grid-template-columns: 1fr; }
+
+  .badges-grid { grid-template-columns: repeat(4, 1fr); }
+}
+.predictor-bar-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  max-width: 720px;
+}
+
+.predictor-label {
+  font-family: 'Space Mono', monospace;
+  font-size: 10px;
+  color: rgba(255,255,255,0.4);
+  letter-spacing: 1px;
+  white-space: nowrap;
+}
+
+.predictor-track {
+  flex: 1;
+  height: 6px;
+  background: rgba(255,255,255,0.08);
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.predictor-fill {
+  height: 100%;
+  border-radius: 3px;
+  transition: width 0.8s ease, background 0.5s ease;
+}
+
+.predictor-percent {
+  font-family: 'Space Mono', monospace;
+  font-size: 12px;
+  font-weight: 700;
+  min-width: 36px;
+  text-align: right;
+  transition: color 0.5s ease;
+}
+.option-btn.eliminated {
+  opacity: 0.15;
+  pointer-events: none;
+  border-color: rgba(255,255,255,0.1);
+}
+/* ── NAVBAR MOBILE ── */
+@media (max-width: 768px) {
+  .quiz-navbar {
+    padding: 0 12px;
+    height: 60px;
+  }
+
+  .region-name {
+    font-size: 14px;
+    letter-spacing: 1px;
+  }
+
+  .pokeball-icon {
+    width: 34px;
+    height: 34px;
+  }
+
+  .badge-case-label {
+    font-size: 6px;
+  }
+
+  .trainer-chip-quiz {
+    padding: 4px 8px;
+    gap: 6px;
+  }
+
+  .trainer-avatar-quiz {
+    width: 24px;
+    height: 24px;
+    font-size: 11px;
+  }
+
+  .trainer-name-quiz {
+    font-size: 11px;
+    max-width: 60px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+}
+
+@media (max-width: 480px) {
+  .quiz-navbar {
+    padding: 0 8px;
+    height: 54px;
+  }
+
+  .navbar-left,
+  .navbar-right {
+    flex: 0 1 auto;
+  }
+
+  .navbar-center {
+    flex: 0 0 auto;
+  }
+
+  .region-name {
+    font-size: 12px;
+  }
+
+  .badge-case-label {
+    display: none;
+  }
+
+  .pokeball-icon {
+    width: 30px;
+    height: 30px;
+  }
+
+  .trainer-name-quiz {
+    display: none;
+  }
+}
+
+/* ── QUIZ MAIN AREA MOBILE ── */
+@media (max-width: 768px) {
+  .quiz-main {
+    padding: 14px;
+    gap: 14px;
+  }
+
+  .question-card {
+    padding: 18px 16px;
+    border-radius: 12px;
+  }
+
+  .question-text {
+    font-size: 14px;
+    line-height: 1.5;
+  }
+
+  .level-indicator {
+    padding: 5px 14px;
+  }
+
+  .level-indicator-text {
+    font-size: 10px;
+  }
+}
+
+/* ── OPTIONS MOBILE ── */
+@media (max-width: 768px) {
+  .option-btn {
+    padding: 12px 14px;
+    gap: 10px;
+  }
+
+  .option-label {
+    font-size: 14px;
+    min-width: 20px;
+  }
+
+  .option-text {
+    font-size: 11px;
+  }
+}
+
+/* ── LIFELINES MOBILE ── */
+@media (max-width: 768px) {
+  .lifelines-container {
+    gap: 10px;
+  }
+
+  .lifeline-btn {
+    padding: 10px 18px;
+    font-size: 10px;
+    gap: 6px;
+  }
+
+  .lifeline-icon {
+    font-size: 13px;
+  }
+}
+
+/* ── PREDICTOR BAR MOBILE ── */
+@media (max-width: 480px) {
+  .predictor-label {
+    font-size: 8px;
+  }
+
+  .predictor-percent {
+    font-size: 10px;
+    min-width: 28px;
+  }
+}
+
+/* ── BADGE MODAL MOBILE ── */
+@media (max-width: 480px) {
+  .badge-modal {
+    width: 92vw;
+    padding: 24px 16px;
+    max-height: 85vh;
+  }
+
+  .modal-title {
+    font-size: 20px;
+    letter-spacing: 2px;
+  }
+
+  .modal-region {
+    font-size: 10px;
+    margin-bottom: 20px;
+  }
+
+  .badges-grid {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+  }
+
+  .badge-slot-inner {
+    width: 48px;
+    height: 48px;
+  }
+
+  .badge-emoji {
+    font-size: 20px;
+  }
+
+  .league-slot .badge-slot-inner {
+    width: 70px;
+    height: 70px;
+  }
+
+  .league-slot .badge-emoji {
+    font-size: 32px;
+  }
+
+  .section-title {
+    font-size: 12px;
+  }
+}
+
+/* ── PRIZE LADDER FURTHER TIGHTENING (very small phones) ── */
+@media (max-width: 380px) {
+  .prize-ladder {
+    height: 64px;
+    padding: 6px 8px;
+    gap: 6px;
+  }
+
+  .ladder-item {
+    min-width: 56px;
+    padding: 4px 6px;
+  }
+
+  .level-number {
+    font-size: 12px;
+  }
+
+  .badge-icon {
+    font-size: 11px;
+  }
+}
