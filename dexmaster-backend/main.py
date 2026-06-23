@@ -4,7 +4,7 @@ from database import engine, Base
 from routes import players, sessions, questions, analytics
 
 # Create all tables
-Base.metadata.create_all(bind=engine)
+#Base.metadata.create_all(bind=engine)
 
 app = FastAPI(
     title="DexMaster API",
