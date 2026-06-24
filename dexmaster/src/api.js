@@ -1,4 +1,4 @@
-const API_BASE = "http://localhost:8000/api";
+const API_BASE = "https://dexmaster-backend.up.railway.app/api";
 
 export async function createPlayer(name, deviceId) {
   try {

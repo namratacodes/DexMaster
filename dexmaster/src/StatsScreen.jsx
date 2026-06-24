@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Cell } from 'recharts';
 import './StatsScreen.css';
 
-const API_BASE = "http://localhost:8000/api";
+const API_BASE = "https://dexmaster-backend.up.railway.app/api";
 
 const regionOrder = ['Kanto','Johto','Hoenn','Sinnoh','Unova','Kalos','Alola','Galar','Paldea'];
 
