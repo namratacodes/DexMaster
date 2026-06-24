@@ -8,7 +8,7 @@ import os
 
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
-API_BASE = "http://localhost:8000/api"
+API_BASE = "https://dexmaster-backend.up.railway.app/api";
 
 st.set_page_config(
     page_title="DexMaster Admin Dashboard",
