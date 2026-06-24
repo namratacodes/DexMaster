@@ -907,29 +907,6 @@ useEffect(() => {
             }}
           />
 
-          {/* DARK OVERLAY so text stays readable over video */}
-          <div style={{
-            position: 'absolute',
-            inset: 0,
-            background: 'linear-gradient(to top, rgba(5,0,0,0.9) 0%, rgba(5,0,0,0.65) 50%, rgba(5,0,0,0.85) 100%)',
-            zIndex: 1,
-            pointerEvents: 'none',
-          }} />
-
-          {/* Fire GIF layered on top for extra warmth */}
-          <img src="/fire.gif" style={{
-            position: 'absolute',
-            bottom: 0,
-            left: 0,
-            width: '100%',
-            height: '60%',
-            objectFit: 'cover',
-            mixBlendMode: 'screen',
-            opacity: 0.2,
-            pointerEvents: 'none',
-            zIndex: 2,
-          }} alt="" />
-
           {/* Embers */}
           <div style={{ position: 'absolute', inset: 0, overflow: 'hidden', pointerEvents: 'none', zIndex: 3 }}>
             {Array.from({ length: 30 }).map((_, i) => (
@@ -962,13 +939,6 @@ useEffect(() => {
             padding: '40px 24px', textAlign: 'center',
             maxWidth: '700px', width: '100%',
           }}>
-
-            {/* Trophy */}
-            <div style={{
-              fontSize: 'clamp(50px, 10vw, 80px)',
-              filter: 'drop-shadow(0 0 30px rgba(255,215,0,1)) drop-shadow(0 0 60px rgba(255,215,0,0.6))',
-              animation: 'trophyFloat 2s ease-in-out infinite',
-            }}>🏆</div>
 
             {/* Title */}
             <h1 style={{
