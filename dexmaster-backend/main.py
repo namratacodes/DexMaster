@@ -15,7 +15,7 @@ app = FastAPI(
 # Allow React frontend to talk to this API
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
+    allow_origins=["https://dexmaster-pi.vercel.app"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
