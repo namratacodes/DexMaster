@@ -90,23 +90,8 @@ Trained on real gameplay attempts (player accuracy, streak, response time, quest
 ---
 
 ##  Architecture
-React Frontend (Vercel)
+<img width="356" height="393" alt="Screenshot 2026-06-25 113354" src="https://github.com/user-attachments/assets/038bb742-1b5f-44be-8deb-a7e92c2a5096" />
 
-↓ REST API
-
-FastAPI Backend (Railway)
-
-↓ SQLAlchemy ORM
-
-MySQL Database (Railway)
-
-↑
-
-Streamlit Dashboard (Streamlit Cloud)
-
-↑
-
-Pandas + Scikit-learn (K-Means, Random Forest)
 
 ---
 
