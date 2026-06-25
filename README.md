@@ -1,6 +1,6 @@
 #  DexMaster
 
-A Pokémon-themed adaptive quiz platform combining KBC-style trivia mechanics with real machine learning — built as a full-stack data science portfolio project.
+A Pokémon-themed adaptive quiz platform with real machine learning , built as a full stack data science portfolio project.
 
 **🎮 Play it live:** https://dexmaster-pi.vercel.app
 
@@ -8,9 +8,9 @@ A Pokémon-themed adaptive quiz platform combining KBC-style trivia mechanics wi
 
 ##  Overview
 
-DexMaster is a 9-region trivia game where players battle through Gym Leaders, earn badges, and compete in a World Coronation Series finale — all while their gameplay behavior is analyzed in real time using machine learning.
+DexMaster is a 9 region trivia game where players battle through Gym Leaders, earn badges, and compete in a World Coronation Series finale , all while their gameplay behavior is analyzed in real time using machine learning.
 
-This isn't just a quiz app with a Pokémon skin. Every player interaction — accuracy, response time, lifeline usage, category performance — is logged to a database and used to:
+This isn't just a quiz app with a Pokémon skin. Every player interaction : accuracy, response time, lifeline usage, category performance ; is logged to a database and used to:
 
 - **Classify player personality** into 8 Pokémon archetypes (Mewtwo, Charizard, Snorlax, Pikachu, Psyduck, Piplup, Gengar, Eevee) using **K-Means clustering**
 - **Predict question success probability** using a trained **Random Forest Classifier**
@@ -59,7 +59,7 @@ The model independently discovers behavioral groups; each cluster's centroid is 
 ### Random Forest Difficulty Predictor
 Trained on real gameplay attempts (player accuracy, streak, response time, question difficulty) to predict probability of a correct answer.
 
-**Current status:** Offline-validated, not yet in production inference path. Trained on 162 real attempts — ROC-AUC of 0.612, showing a genuine learned signal above random chance. The frontend currently uses a rule-based formula for the live difficulty bar; this is an intentional scope decision given the small training sample, not a technical limitation. A clear next step would be collecting more gameplay data and properly computing rolling per-attempt features (currently using simplified placeholders for accuracy-so-far and streak during training).
+**Current status:** Offline-validated, not yet in production inference path. Trained on 162 real attempts with ROC-AUC of 0.612, showing a genuine learned signal above random chance. The frontend currently uses a rule-based formula for the live difficulty bar; this is an intentional scope decision given the small training sample, not a technical limitation. A clear next step would be collecting more gameplay data and properly computing rolling per-attempt features (currently using simplified placeholders for accuracy-so-far and streak during training).
 
 ---
 
@@ -78,13 +78,13 @@ Trained on real gameplay attempts (player accuracy, streak, response time, quest
 ##  Features
 
 - 9 regions × 8 gyms × adaptive question pools (486+ questions)
-- World Coronation Series — timed master-level finale, no lifelines
-- Device-based player identity (no login required)
-- Resume system — pick up exactly where you left off, lifelines and all
+- World Coronation Series : timed master level finale, no lifelines
+- Device based player identity (no login required)
+- Resume system : pick up exactly where you left off, lifelines and all
 - Animated Professor Oak lifeline with randomized dialogue
 - Holographic personality & champion trading cards
 - Full mobile responsiveness
-- Real-time difficulty prediction bar
+- Real time difficulty prediction bar
 - Admin analytics dashboard with leaderboards, category breakdowns, and live clustering
 
 ---
@@ -123,7 +123,7 @@ You'll need a local MySQL instance and a `.env` file in `dexmaster-backend/` wit
 
 ##  Known Limitations
 
-- Random Forest model trained on a small sample (162 attempts) — results are directionally meaningful but not statistically robust
+- Random Forest model trained on a small sample (162 attempts) : results are directionally meaningful but not statistically robust
 - Device-based identity means progress doesn't sync across different devices for the same player
 - Random Forest predictions are validated offline but not yet wired into the live difficulty bar
 
@@ -131,10 +131,10 @@ You'll need a local MySQL instance and a `.env` file in `dexmaster-backend/` wit
 
 ##  License
 
-This is a fan-made, non-commercial project built for educational and portfolio purposes. Not affiliated with Nintendo, Game Freak, or The Pokémon Company. All Pokémon names and references belong to their respective owners.
+This is a fan made, non commercial project built for educational and portfolio purposes. Not affiliated with Nintendo, Game Freak, or The Pokémon Company. All Pokémon names and references belong to their respective owners.
 
 ---
 
 ##  Author
 
-Built by [Namrata Singh] — [www.linkedin.com/in/namrata-singh-3658b0287] 
+Built by Namrata Singh [www.linkedin.com/in/namrata-singh-3658b0287] 
