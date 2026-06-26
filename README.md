@@ -1,6 +1,6 @@
 #  DexMaster
 
-A Pokémon-themed adaptive quiz platform with real machine learning , built as a full stack data science portfolio project.
+A Pokémon themed adaptive quiz platform with real machine learning , built as a full stack data science portfolio project.
 
 **🎮 Play it live:** https://dexmaster-pi.vercel.app
 
@@ -124,8 +124,38 @@ You'll need a local MySQL instance and a `.env` file in `dexmaster-backend/` wit
 ##  Known Limitations
 
 - Random Forest model trained on a small sample (162 attempts) : results are directionally meaningful but not statistically robust
-- Device-based identity means progress doesn't sync across different devices for the same player
+- Device based identity means progress doesn't sync across different devices for the same player
 - Random Forest predictions are validated offline but not yet wired into the live difficulty bar
+- The trained model and dataset exist only in the local development environment , the live deployed database starts fresh and accumulates its own independent data
+- Random Forest training currently uses simplified placeholder values for "accuracy so far" and "current streak" rather than true rolling per-attempt calculations, which limits how strong the model's signal can be
+- K-Means clustering was validated on a small player sample (8 players) ; sufficient to demonstrate the technique correctly, but not large enough for statistically robust segmentation
+- No authentication system , anyone can claim any trainer name on a given device, so player identity is not cryptographically verified
+- Question bank, while diversified across categories, was authored manually rather than sourced from a verified canonical database, so occasional inaccuracies may exist despite review
+
+---
+
+##  Future Enhancements
+
+**Machine Learning**
+- Collect more gameplay data and retrain the Random Forest with properly computed rolling features (true per attempt accuracy and streak history instead of placeholders)
+- Wire the trained Random Forest into the live difficulty bar via a dedicated prediction endpoint, with a fallback to the rule based formula if the API is unavailable
+- Explore Item Response Theory (IRT) to calculate true question difficulty from aggregate player performance rather than manually assigned difficulty ratings
+- Upgrade the question recommender from rule-based selection to a collaborative filtering approach based on similarity between players' performance patterns
+- Re-run K-Means clustering periodically as the live player base grows, to validate whether the same archetypes hold at scale
+
+**Features**
+- Optional account system (email/OAuth) so progress can sync across devices for the same player
+- Leaderboard visible to players in app, not just in the admin dashboard
+- Expand the question bank further and rotate in new questions periodically to keep WCS replayable
+- Add a "Champion Card" entry point directly from the WCS win screen that links to the same card now living in MY CARD, avoiding any duplication of card logic
+- Sound effects and background music toggle
+- Light/dark theme option for accessibility preference, alongside the current dark theme
+
+**Infrastructure**
+- Add automated tests (unit tests for recommender/predictor logic, integration tests for API endpoints)
+- Set up CI/CD so pushes to main automatically run tests before deploying
+- Add basic rate limiting on the backend to prevent abuse of public endpoints
+- Migrate the trained model artifacts to cloud storage so retraining on the live database is straightforward without manual file transfer
 
 ---
 
