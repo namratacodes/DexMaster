@@ -59,7 +59,7 @@ The model independently discovers behavioral groups; each cluster's centroid is 
 ### Random Forest Difficulty Predictor
 Trained on real gameplay attempts (player accuracy, streak, response time, question difficulty) to predict probability of a correct answer.
 
-**Current status:** Offline-validated, not yet in production inference path. Trained on 162 real attempts with ROC-AUC of 0.612, showing a genuine learned signal above random chance. The frontend currently uses a rule-based formula for the live difficulty bar; this is an intentional scope decision given the small training sample, not a technical limitation. A clear next step would be collecting more gameplay data and properly computing rolling per-attempt features (currently using simplified placeholders for accuracy-so-far and streak during training).
+**Current status:** Offline validated, not yet in production inference path. Trained on 162 real attempts with ROC-AUC of 0.612, showing a genuine learned signal above random chance. The frontend currently uses a rule-based formula for the live difficulty bar; this is an intentional scope decision given the small training sample, not a technical limitation. A clear next step would be collecting more gameplay data and properly computing rolling per-attempt features (currently using simplified placeholders for accuracy-so-far and streak during training).
 
 ---
 
